@@ -1,1 +1,4 @@
-
+replicaCount:1
+image:
+  repository: 837095527035.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
+  pullPolicy: IfNotPresent
