@@ -1,0 +1,23 @@
+name: Helm Package
+on:
+  push:
+    tags:
+      - : "v*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0
+      - name: Lint Helm chart
+        run: helm lint my-app
+      - name: Package Helm chart
+        run: helm package my-app --destination dist
+      - name: Upload Helm chart to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.gz
